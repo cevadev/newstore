@@ -7,6 +7,8 @@ import {
   Body,
   Put,
   Delete,
+  HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
 
 @Controller('products')
@@ -33,6 +35,8 @@ export class ProductsController {
   }
 
   @Get(':productId')
+  //indicamos que el request get nos responda con un Status Accepted = 202
+  @HttpCode(HttpStatus.ACCEPTED)
   getProduct(@Param('productId') productId: number) {
     return {
       message: `El producto es ${productId}`,

@@ -14,6 +14,9 @@ import {
 
 import { ProductsService } from '../../services/products/products.service';
 
+//import dto
+import { CreateProductDto, UpdateProductDto } from '../../dtos/products.dto';
+
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
@@ -53,7 +56,7 @@ export class ProductsController {
 
   //uso metodo POST
   @Post()
-  createProduct(@Body() payload: any) {
+  createProduct(@Body() payload: CreateProductDto) {
     return this.productsService.create(payload);
     /* return {
       message: 'accion de crear',
@@ -65,7 +68,10 @@ export class ProductsController {
   //uso metodo PUT para modificar completamente un producto
   @Put(':productId')
   //payload -> es el cuerpo de todo lo que se va a editar
-  update(@Param('productId') productId: String, @Body() payload: any) {
+  update(
+    @Param('productId') productId: String,
+    @Body() payload: UpdateProductDto,
+  ) {
     return this.productsService.update(+productId, payload);
     //comprobamos si estamos recibiendo la informacion
     /* return {
